@@ -1,11 +1,18 @@
 import React from 'react';
 import { Person } from './types';
 import { PersonLink } from './PersonLink';
-import { useParams } from 'react-router-dom';
 
-export const PeopleTable: React.FC<{ people: Person[] }> = ({ people }) => {
-  const { slug } = useParams(); // Получаем slug из URL для подсветки
-  // eslint-disable-next-line max-len
+type Props = {
+  people: Person[];
+  selectedSlug: string | null;
+  onSelect: (slug: string) => void;
+};
+
+export const PeopleTable: React.FC<Props> = ({
+  people,
+  selectedSlug,
+  onSelect,
+}) => {
   const getPersonByName = (name: string | null) =>
     people.find(p => p.name === name);
 
@@ -26,7 +33,13 @@ export const PeopleTable: React.FC<{ people: Person[] }> = ({ people }) => {
           <tr
             key={person.slug}
             data-cy="person"
-            className={person.slug === slug ? 'has-background-warning' : ''}
+            // Подсветка через пропсы
+            className={
+              person.slug === selectedSlug ? 'has-background-warning' : ''
+            }
+            // Клик по всей строке
+            onClick={() => onSelect(person.slug)}
+            style={{ cursor: 'pointer' }}
           >
             <td>
               <PersonLink person={person} />
