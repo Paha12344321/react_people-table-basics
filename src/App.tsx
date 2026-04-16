@@ -2,19 +2,6 @@ import './App.scss';
 import { NavLink, Outlet } from 'react-router-dom';
 import classNames from 'classnames';
 
-const API_URL =
-  'https://mate-academy.github.io/react_people-table/api/people.json';
-
-export function allUsers() {
-  return fetch(API_URL).then(response => {
-    if (!response.ok) {
-      throw new Error();
-    }
-
-    return response.json();
-  });
-}
-
 // eslint-disable-next-line @typescript-eslint/no-shadow
 export const isActive = ({ isActive }: { isActive: boolean }) =>
   classNames('navbar-item', {
