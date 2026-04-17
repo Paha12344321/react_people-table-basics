@@ -8,11 +8,7 @@ type Props = {
   onSelect: (slug: string) => void;
 };
 
-export const PeopleTable: React.FC<Props> = ({
-  people,
-  selectedSlug,
-  onSelect,
-}) => {
+export const PeopleTable: React.FC<Props> = ({ people, selectedSlug }) => {
   const getPersonByName = (name: string | null) =>
     people.find(p => p.name === name);
 
@@ -33,13 +29,9 @@ export const PeopleTable: React.FC<Props> = ({
           <tr
             key={person.slug}
             data-cy="person"
-            // Подсветка через пропсы
             className={
               person.slug === selectedSlug ? 'has-background-warning' : ''
             }
-            // Клик по всей строке
-            onClick={() => onSelect(person.slug)}
-            style={{ cursor: 'pointer' }}
           >
             <td>
               <PersonLink person={person} />
